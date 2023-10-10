@@ -4,7 +4,7 @@
   "description": "Private Chat GPT Server taking in a prompt via router and using the API given from Open AI, to access Chat GPT AI Models. ** Must have paid plan with API key for authorization**",
   "main": "server.js",
   "scripts": {
-    "start": "pm2 start server.js",
+    "start": "pm2 start gptServer.js --watch",
     "dev": "nodemon server.js"
   },
   "keywords": [],
