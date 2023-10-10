@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const OpenAI = require('openai');
 const cors = require('cors');
+const axios = require('axios');
+
 
 
 
@@ -25,9 +27,16 @@ app.post('/ask', async (req, res) => {
       max_tokens: 80
     });
     res.json(chatCompletion.choices[0].message.content);
-    console.log('sending response')
+    console.log('sending response to user')
+    await axios.post(DISCORD_WEBHOOK_URL, {
+      content: '=========STARTING GPT SERVER==========='
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
+    await axios.post(DISCORD_WEBHOOK_URL, {
+      content: `=========GPT SERVER ERROR===========
+            ERROR: ${error}`
+    });
   }
 });
 
